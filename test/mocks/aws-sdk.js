@@ -6,9 +6,6 @@ exports.env = {
 };
 
 exports.config = {};
-exports.config.update = function(key, val) {
-  exports.env[key] = val;
-};
 exports.config.loadFromPath = function(path) {
   require(path);
 };

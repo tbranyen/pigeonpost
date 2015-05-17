@@ -1,6 +1,8 @@
-# Pigeon Post (Amazon SES E-Mail Scheduler & Delivery API)
+# Pigeon Post
 
 [![Build Status](https://travis-ci.org/tbranyen/pigeonpost.svg)](https://travis-ci.org/tbranyen/pigeonpost)
+
+An Amazon SES E-Mail Scheduler & Delivery API
 
 The following outlines the details for collaborating on this Node application.
 
@@ -33,6 +35,11 @@ http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Credenti
   "region": "us-east-1"
 }
 ```
+
+To inform this module where the aforementioned file lives, set the environment
+variable `AWS_SES_SECRETS` to an absolute fully qualified path on disk to the
+JSON file.  It must be absolute and fully qualified as it may run from various
+locations.
 
 ## Usage
 
