@@ -1,6 +1,6 @@
 # Pigeon Post
 
-An Amazon SES E-Mail Scheduler & Delivery API
+An Amazon SES E-Mail Scheduler & Delivery API.
 
 [![Build
 Status](https://travis-ci.org/tbranyen/pigeonpost.svg)](https://travis-ci.org/tbranyen/pigeonpost)
@@ -72,13 +72,12 @@ Content-Type: application/json
 This is the endpoint you'll hit when you want to immediately send an email.
 Useful for one off emails, such as new account registration or forgot password.
 
+Description                     | Method   | Endpoint
+:------------------------------ | :------- | :--------
+[Send an email](#send-an-email) | `POST`   | `/send`
+
+
 ##### Send an email:
-
-Method   | Endpoint
-:------- | :--------
-`POST`   | `/send`
-
-##### Example:
 
 ``` sh
 curl \
@@ -108,39 +107,6 @@ Response:
 }
 ```
 
-<table width="100%">
-
-<thead>
-  <tr>
-    <th>Description</th>
-    <th>URL</th>
-    <th>Method</th>
-    <th>Request</th>
-    <th>Response</th>
-  </tr>
-</thead>
-
-<tbody>
-  <!-- Create poller -->
-  <tr>
-    <td>Send an e-mail</td>
-    <td>`/send`</td>
-    <td>`POST`</td>
-    <td>
-<pre class="highlight"><code>{
-  "to": ["tim@tabdeveloper.com"],
-  "from": "tim@bocoup.com",
-  "subject": "Testing this out!!!",
-  "body": "The <b>HTML capable</b> email message body!"
-}</code></pre>
-    </td>
-    <td valign="top">
-      Body:
-      <pre class="highlight"><code>{}</code></pre></td>
-  </tr>
-</tbody>
-</table>
-
 #### Pollers
 
 These are jobs that are executed on a specific schedule.  They are assigned using
@@ -148,107 +114,115 @@ Crontab, and allow any valid schedule expression within that format.  You would
 use this endpoint to schedule emails to be sent every day/month/year, schedule
 an email to be sent 5 minutes from now, etc.
 
-<table width="100%">
 
-<thead>
-  <tr>
-    <th>Description</th>
-    <th>URL</th>
-    <th>Method</th>
-    <th>Request</th>
-    <th>Response</th>
-  </tr>
-</thead>
+Description                                                    | Method   | Endpoint
+:------------------------------------------------------------- | :------- | :--------
+[Create a new poller](#create-a-new-poller)                    | `POST`   | `/poll`
+[Create or update new poller](#create-or-update-new-poller)    | `PUT`    | `/poll`
+[Get all pollers](#get-all-pollers)                            | `GET`    | `/poll`
+[Get specific poller](#get-specific-poller)                    | `GET`    | `/poll/:id`
+[Delete specific poller](#delete-specific-poller)              | `DELETE` | `/poll/:id`
 
-<tbody>
-  <!-- Create poller -->
-  <tr>
-    <td>Create a new poller</td>
-    <td>`/poll`</td>
-    <td>`POST`</td>
-    <td valign="top">
-<pre class="highlight"><code>{
-  "id": "test-uuid"
-}</code></pre>
-    </td>
-    <td valign="top">
-      <pre class="highlight"><code>{
-  "id": "test-uuid"
-}</code></pre></td>
-  </tr>
+##### Create a new poller:
 
-  <!-- Create or update poller -->
-  <tr>
-    <td>Create or update new poller</td>
-    <td>`/poll`</td>
-    <td>`PUT`</td>
-    <td valign="top">
-<pre class="highlight"><code>{
-  "id": "test-uuid"
-}</code></pre>
-    </td>
-    <td valign="top">
-      <pre class="highlight"><code>{
-  "id": "test-uuid"
-}</code></pre></td>
-  </tr>
+``` sh
+curl \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d \
+  '{
+     "uuid": "test-uuid",
+   }' \
+  http://localhost:8000/poll
+```
 
-  <!-- Get all pollers -->
-  <tr>
-    <td>Get all pollers</td>
-    <td>`/poll`</td>
-    <td>`GET`</td>
-    <td valign="top">
-<pre class="highlight"><code>null</code></pre>
-    </td>
-    <td valign="top">
-      <pre class="highlight"><code>{
-  "data": [{
-    "id": "test-uuid"
-  }]
-}</code></pre></td>
-  </tr>
+Response:
 
-  <!-- Get a specific poller -->
-  <tr>
-    <td>Get a specific poller</td>
-    <td>`/poll/:id`</td>
-    <td>`GET`</td>
-    <td valign="top">
-<pre class="highlight"><code>null</code></pre>
-    </td>
-    <td valign="top">
-      <pre class="highlight"><code>{
-  "data": {
-    "id": "test-uuid"
-  }
-}</code></pre></td>
-  </tr>
+``` json
+{
+  "data": {}
+}
+```
 
-  <!-- Delete a specific poller -->
-  <tr>
-    <td>Delete a specific poller</td>
-    <td>`/poll/:id`</td>
-    <td>`DELETE`</td>
-    <td valign="top">
-<pre class="highlight"><code>null</code></pre>
-    </td>
-    <td valign="top">
-      <pre class="highlight"><code>{
-  "data": {
-    "id": "test-uuid"
-  }
-}</code></pre></td>
-  </tr>
-</tbody>
-</table>
+##### Create or update new poller:
 
+``` sh
+curl \
+  -H "Content-Type: application/json" \
+  -X PUT \
+  -d \
+  '{
+     "uuid": "test-uuid",
+   }' \
+  http://localhost:8000/poll
+```
+
+Response:
+
+``` json
+{
+  "data": {}
+}
+```
+
+##### Get all pollers:
+
+``` sh
+curl \
+  -X GET \
+  http://localhost:8000/poll
+```
+
+Response:
+
+``` json
+{
+  "data": []
+}
+```
+
+##### Get specific poller:
+
+``` sh
+curl \
+  -X GET \
+  http://localhost:8000/poll/<id>
+```
+
+Response:
+
+``` json
+{
+  "data": {}
+}
+```
+
+##### Delete specific poller:
+
+``` sh
+curl \
+  -X DELETE \
+  http://localhost:8000/poll/<id>
+```
+
+Response:
+
+``` json
+{
+  "data": {}
+}
+```
 
 ## Running / Development
 
-* `npm start`
-* Visit your app at [http://localhost:8000](http://localhost:8000).
+``` sh
+npm start
+```
+
+Visit the server at [http://localhost:8000](http://localhost:8000).
 
 ### Running Tests
 
-* `npm test`
+``` sh
+npm test
+```
