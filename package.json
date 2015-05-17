@@ -1,0 +1,44 @@
+{
+  "name": "pigeonpost",
+  "version": "0.0.0",
+  "description": "Amazon SES E-Mail scheduling and delivery API",
+  "main": "server",
+  "bin": "bin",
+  "scripts": {
+    "test": "AWS_SES_SECRETS=$PWD/test/fixtures/secrets.json mocha test/setup test/tests",
+    "start": "node bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbranyen/pigeonpost.git"
+  },
+  "author": "Tim Branyen via Bocoup",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tbranyen/pigeonpost/issues"
+  },
+  "homepage": "https://github.com/tbranyen/pigeonpost",
+  "dependencies": {
+    "aws-sdk": "^2.1.22",
+    "bluebird": "^2.9.24",
+    "body-parser": "^1.12.2",
+    "cheerio": "^0.19.0",
+    "combyne": "^0.8.0",
+    "crontab": "^1.0.2",
+    "express": "^4.12.3",
+    "handlebars": "^3.0.1",
+    "jade": "^1.9.2",
+    "kue": "^0.9.0",
+    "lodash": "^3.6.0",
+    "lodash.assign": "^3.1.0",
+    "moment": "^2.10.2",
+    "mustache": "^2.0.0",
+    "node-uuid": "^1.4.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4",
+    "moment": "^2.10.2",
+    "request": "^2.55.0",
+    "supertest": "^0.15.0"
+  }
+}
