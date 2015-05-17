@@ -82,16 +82,15 @@ Method   | Endpoint
 
 ``` sh
 curl \
-  # Ensure you're sending a valid Content-Type header.
   -H "Content-Type: application/json" \
-
-  # Use POST.
   -X POST \
-
-  # Send the JSON as a string in the request body.
-  -d '{"to":"xyz","password":"xyz"}' \
-
-  # Point to your api endpoint.
+  -d \
+  '{
+     "to": ["tim@tabdeveloper.com"],
+     "from": "tim@tabdeveloper.com.com",
+     "subject": "A test subject!",
+     "body": "Test message"
+   }' \
   http://localhost:8000/send
 ```
 
