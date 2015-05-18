@@ -15,8 +15,8 @@ You will need the following things properly installed on your computer.
 * [Redis](http://redis.io/)
 * [Crontab](http://crontab.org/)
 
-Note: Due to the dependency on Crontab, this application will not run easily on
-Windows.
+Note: Due to the dependency on Crontab, this application will [not run easily on
+Windows](http://stackoverflow.com/questions/132971/what-is-the-windows-version-of-cron).
 
 ## Installation
 
@@ -86,7 +86,7 @@ curl \
   -d \
   '{
      "to": ["tim@tabdeveloper.com"],
-     "from": "tim@tabdeveloper.com.com",
+     "from": "tim@tabdeveloper.com",
      "subject": "A test subject!",
      "body": "Test message"
    }' \
