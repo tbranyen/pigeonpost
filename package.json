@@ -5,7 +5,7 @@
   "main": "server",
   "bin": "bin",
   "scripts": {
-    "test": "AWS_SES_SECRETS=$PWD/test/fixtures/secrets.json mocha test/setup test/tests",
+    "test": "mocha test/setup test/tests",
     "start": "node bin"
   },
   "repository": {
