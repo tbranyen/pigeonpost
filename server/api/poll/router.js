@@ -34,12 +34,7 @@ function createJob(crontab, body) {
 }
 
 function formatJob(job) {
-  if (job) {
-    return { id: job.comment() };
-  }
-  else {
-    return null;
-  }
+  return job ? { id: job.comment() } : null;
 }
 
 function sendResponse(res, job) {

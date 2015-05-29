@@ -40,7 +40,11 @@ docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Cr
 
 By design this application is meant to be standalone on a server and act as a
 server daemon.  If you would like to directly integrate with your pre-existing
-server, this application also acts as express middleware.
+server, this application also acts as express middleware:
+
+``` javascript
+app.use('/email', require('pigeonpost'));
+```
 
 #### Environment variable configuration
 
@@ -79,6 +83,17 @@ Description                     | Method   | Endpoint
 
 ##### Send an email:
 
+Request:
+
+Param   | Type   | Example                       | Required
+:------ | :----- | :---------------------------- | :--------
+to      | Array  | ['tim@tabdeveloper.com']      | yes
+from    | String | 'tim@bocoup.com'              | yes
+subject | String | 'A test subject!'             | yes
+body    | String | 'Test message'                | yes
+
+Example:
+
 ``` sh
 curl \
   -H "Content-Type: application/json" \
@@ -86,7 +101,7 @@ curl \
   -d \
   '{
      "to": ["tim@tabdeveloper.com"],
-     "from": "tim@tabdeveloper.com",
+     "from": "tim@bocoup.com",
      "subject": "A test subject!",
      "body": "Test message"
    }' \
@@ -124,6 +139,18 @@ Description                                                    | Method   | Endp
 [Delete specific poller](#delete-specific-poller)              | `DELETE` | `/poll/:id`
 
 ##### Create a new poller:
+
+Request:
+
+Param    | Type           | Example                       | Required
+:------- | :------------- | :---------------------------- | :--------
+id       | String         | 'aabbcc-ddeeff-001122'        | no
+template | Object         | 'tim@bocoup.com'              | yes
+data     | Object         | 'A test subject!'             | yes
+schedule | String/Number  | 'Test message'                | yes
+hanlder  | String         | 'Test message'                | yes
+
+Example:
 
 ``` sh
 curl \
