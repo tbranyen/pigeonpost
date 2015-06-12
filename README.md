@@ -85,12 +85,12 @@ Description                     | Method   | Endpoint
 
 Request:
 
-Param   | Type   | Example                       | Required
-:------ | :----- | :---------------------------- | :--------
-to      | Array  | ['tim@tabdeveloper.com']      | yes
-from    | String | 'tim@bocoup.com'              | yes
-subject | String | 'A test subject!'             | yes
-body    | String | 'Test message'                | yes
+Param   | Type   | Required
+:------ | :----- | :--------
+to      | Array  | yes
+from    | String | yes
+subject | String | yes
+body    | String | yes
 
 Example:
 
@@ -142,13 +142,13 @@ Description                                                    | Method   | Endp
 
 Request:
 
-Param    | Type           | Example                       | Required
-:------- | :------------- | :---------------------------- | :--------
-id       | String         | 'aabbcc-ddeeff-001122'        | no
-template | Object         | 'tim@bocoup.com'              | yes
-data     | Object         | 'A test subject!'             | yes
-schedule | String/Number  | 'Test message'                | yes
-hanlder  | String         | 'Test message'                | yes
+Param    | Type           | Required
+:------- | :------------- | :--------
+id       | String         | no
+template | Object         | yes
+data     | Object         | yes
+schedule | String/Number  | yes
+handler  | String         | yes
 
 Example:
 
@@ -158,7 +158,10 @@ curl \
   -X POST \
   -d \
   '{
-     "uuid": "test-uuid",
+     "id": "test-uuid",
+     "template": {
+       "test-uuid",
+     }
    }' \
   http://localhost:8000/poll
 ```
@@ -194,6 +197,14 @@ Response:
 
 ##### Get all pollers:
 
+Request:
+
+Param    | Type           | Required
+:------- | :------------- | :--------
+No parameters
+
+Example:
+
 ``` sh
 curl \
   -X GET \
@@ -210,6 +221,14 @@ Response:
 
 ##### Get specific poller:
 
+Request:
+
+Param    | Type           | Required
+:------- | :------------- | :--------
+id       | Number         | yes
+
+Example:
+
 ``` sh
 curl \
   -X GET \
@@ -225,6 +244,14 @@ Response:
 ```
 
 ##### Delete specific poller:
+
+Request:
+
+Param    | Type           | Required
+:------- | :------------- | :--------
+id       | Number         | yes
+
+Example:
 
 ``` sh
 curl \
