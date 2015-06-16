@@ -1,2 +1,1 @@
-var kue = require('kue');
-module.exports = kue.createQueue();
+module.exports = require('kue').createQueue();

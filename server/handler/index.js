@@ -2,7 +2,6 @@ const Bluebird = require('bluebird');
 const getPayload = require('./actions/get-payload');
 const fetchResources = require('./actions/fetch-resources');
 const processData = require('./actions/process-data');
-const renderTemplate = require('./actions/render-template');
 const queueEmail = require('./actions/queue-email');
 const crontab = require('crontab');
 
@@ -25,7 +24,6 @@ module.exports = function(argv) {
     .then(getPayload)
     .then(fetchResources)
     .then(processData)
-    .then(renderTemplate)
     .then(queueEmail)
     .then(function(state) {
       if (state.payload.expires) {

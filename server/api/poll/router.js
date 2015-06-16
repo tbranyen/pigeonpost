@@ -53,7 +53,7 @@ function validateBody(body) {
   assert(body.handler, 'Handler is missing');
 }
 
-var getTab = new Bluebird(function(resolve, reject) {
+var getCronTab = new Bluebird(function(resolve, reject) {
   crontab.load(function(err, crontab) {
     if (err) { reject(err); }
     else { resolve(crontab); }
@@ -64,20 +64,20 @@ var getTab = new Bluebird(function(resolve, reject) {
 });
 
 router.get('/', function(req, res) {
-  getTab.then(function(crontab) {
+  getCronTab.then(function(crontab) {
     res.json({ data: crontab.find().map(formatJob) });
   }).catch(sendError.bind(null, res));
 });
 
 router.get('/:id', function(req, res) {
-  getTab.then(function(crontab) {
+  getCronTab.then(function(crontab) {
     var job = crontab.find({ comment: req.params.id });
     sendResponse(res, job);
   }).catch(sendError.bind(null, res));
 });
 
 router.post('/', function(req, res) {
-  getTab.then(function(crontab) {
+  getCronTab.then(function(crontab) {
     validateBody(req.body);
 
     var id = req.body.id || uuid();
@@ -94,7 +94,7 @@ router.post('/', function(req, res) {
 });
 
 router.put('/', function(req, res) {
-  getTab.then(function(crontab) {
+  getCronTab.then(function(crontab) {
     var prior = crontab.find({ comment: req.body.id });
 
     if (prior) {
@@ -111,7 +111,7 @@ router.put('/', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-  getTab.then(function(crontab) {
+  getCronTab.then(function(crontab) {
     var prior = crontab.find({ comment: req.params.id });
 
     assert(prior, 'Job doesn\'t exist');

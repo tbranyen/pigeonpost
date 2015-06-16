@@ -16,9 +16,6 @@ module.exports = {
   schedule: '@daily',
 
   handler: function(resp) {
-    var resp = JSON.parse(resp);
-
-    // FIXME This should return an object.
     return resp.map(function(entry) {
       return {
         data: {
@@ -28,13 +25,11 @@ module.exports = {
           lastDay: entry.last_day
         },
 
-        email: {
-          to: entry.employee.supporter.email,
-          from: entry.employee.email,
-          cc: 'hr@bocoup.com',
-          subject: 'Upcoming Time off Request (' + entry.first_day +
-            ' - ' + entry.last_day + ')'
-        }
+        to: entry.employee.supporter.email,
+        from: entry.employee.email,
+        cc: 'hr@bocoup.com',
+        subject: 'Upcoming Time off Request (' + entry.first_day +
+          ' - ' + entry.last_day + ')'
       };
     });
   }.toString()

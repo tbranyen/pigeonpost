@@ -7,7 +7,7 @@ module.exports = {
   template: {
     type: 'text',
     engine: 'combyne',
-    value: 'Hello {{ data.name }}'
+    value: 'Hello {{ name }}'
   },
   data: {
     type: 'url',
@@ -17,7 +17,7 @@ module.exports = {
   schedule: moment().add(1, 'seconds'),
   handler: function($) {
     return {
-      name: $("title").text()
+      name: $('title').text()
     };
   }.toString()
 };

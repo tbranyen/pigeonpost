@@ -1,37 +1,33 @@
 const Bluebird = require('bluebird');
 const queue = require('../../queue');
 const email = require('../../email');
-const extend = require('lodash.assign');
+const engines = require('../../engines');
+const _ = require('lodash');
 
 function createQueue(payload) {
   queue.create('email', payload).priority('normal').save();
 }
 
 module.exports = function queueEmail(state) {
+  var engine = engines[state.payload.template.engine];
   var payloads = [];
 
-  // If the list of email addresses is already provided, iterate over these to
-  // schedule emails.
-  if (Array.isArray(state.payload.to)) {
-    // Iterate over every email address and
-    payloads = state.payload.to.map(function(to, i) {
-      var item = Array.isArray(state.payload.data) ?
-        state.payload.data[i] : state.payload.data;
-      var payload = extend(state.payload, item);
-
-      // Override so that each email is scoped to the current sendee.
-      payload.to = to;
-
-      return payload;
+  // Working with an Array of payloads.
+  if (state.payload._extended) {
+    payloads = state.payload._extended.map(function(payload) {
+      return _.extend({}, state.payload, payload);
     });
   }
-  else if (Array.isArray(state.payload.data)) {
-    payloads = state.payload.data.map(function(item) {
-      // Extend item data into the state payload.
-      var payload = extend(state.payload, item);
-      return payload;
-    });
+  // A single payload.
+  else {
+    payloads.push(state.payload);
   }
+
+  // Render the template and attach the payload body.
+  payloads.forEach(function(payload) {
+    console.log(state.payload);
+    payload.body = engine.render(state.template, payload);
+  });
 
   // Normalize and queue all payloads.
   payloads.map(email.normalizePayload).forEach(createQueue);

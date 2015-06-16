@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Bluebird = require('bluebird');
 const parsers = require('../../parsers');
 
@@ -15,8 +16,16 @@ module.exports = function processData(state) {
     var fn = new Function('return ' + handler)();
     var parsed = parsers[state.payload.data.parser](state.data);
 
-    // Merge extracted data into the payload.
-    state.payload.data = fn(parsed);
+    // Get the extracted response.
+    var extracted = fn(parsed);
+
+    // If the handler returns an Array we need to break out the
+    if (Array.isArray(extracted)) {
+      state.payload._extracted = extracted;
+    }
+    else {
+      _.extend(state.payload, extracted);
+    }
 
     resolve(state);
   });

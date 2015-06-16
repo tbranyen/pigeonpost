@@ -8,12 +8,12 @@ Status](https://travis-ci.org/tbranyen/pigeonpost.svg)](https://travis-ci.org/tb
 
 ## Prerequisites
 
-You will need the following things properly installed on your computer.
+You will need the following dependencies properly installed on your computer.
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Redis](http://redis.io/)
-* [Crontab](http://crontab.org/)
+* [Crontab](http://crontab.org/) (Installed by default in OS X & Linux)
 
 Note: Due to the dependency on Crontab, this application will [not run easily on
 Windows](http://stackoverflow.com/questions/132971/what-is-the-windows-version-of-cron).
@@ -88,6 +88,8 @@ Request:
 Param   | Type   | Required
 :------ | :----- | :--------
 to      | Array  | yes
+cc      | Array  | no
+bcc     | Array  | no
 from    | String | yes
 subject | String | yes
 body    | String | yes

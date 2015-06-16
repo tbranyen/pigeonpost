@@ -9,9 +9,9 @@ module.exports = function normalizePayload(payload) {
   return {
     Source: payload.from,
     Destination: {
-      BccAddresses: payload.bcc || [],
+      ToAddresses: payload.to,
       CcAddresses: payload.cc || [],
-      ToAddresses: payload.to || []
+      BccAddresses: payload.bcc || []
     },
     Message: {
       Body: {
