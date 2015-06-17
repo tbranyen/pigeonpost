@@ -36,5 +36,8 @@ module.exports = function(argv) {
       }
 
       return state;
+    })
+    .catch(function(ex) {
+      require('fs').writeFileSync('/home/tim/Desktop/error_log', ex.stack);
     });
 };

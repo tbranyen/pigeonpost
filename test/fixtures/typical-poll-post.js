@@ -18,14 +18,12 @@ module.exports = {
   handler: function(resp) {
     return resp.map(function(entry) {
       return {
-        data: {
-          requestor: entry.employee.first + ' ' + entry.employee.last,
-          requestDay: entry.request_day,
-          firstDay: entry.first_day,
-          lastDay: entry.last_day
-        },
+        requestor: entry.employee.first + ' ' + entry.employee.last,
+        requestDay: entry.request_day,
+        firstDay: entry.first_day,
+        lastDay: entry.last_day,
 
-        to: entry.employee.supporter.email,
+        to: [entry.employee.supporter.email],
         from: entry.employee.email,
         cc: 'hr@bocoup.com',
         subject: 'Upcoming Time off Request (' + entry.first_day +

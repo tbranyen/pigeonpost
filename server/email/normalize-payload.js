@@ -7,7 +7,7 @@
  */
 module.exports = function normalizePayload(payload) {
   return {
-    Source: payload.from,
+    Source: Array.isArray(payload.from) ? payload.from[0] : payload.from,
     Destination: {
       ToAddresses: payload.to,
       CcAddresses: payload.cc || [],
@@ -16,11 +16,11 @@ module.exports = function normalizePayload(payload) {
     Message: {
       Body: {
         Html: {
-          Data: payload.body
+          Data: String(payload.body)
         }
       },
       Subject: {
-        Data: payload.subject
+        Data: String(payload.subject)
       }
     }
   };

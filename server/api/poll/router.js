@@ -25,7 +25,9 @@ function createJob(crontab, body) {
   }
 
   // Convert body.handler to base64 to avoid quoting issues on CLI.
-  body.handler = new Buffer(body.handler).toString('base64');
+  if (body.handler) {
+    body.handler = new Buffer(body.handler).toString('base64');
+  }
 
   return crontab.create([
     handlerPath,
@@ -50,7 +52,6 @@ function validateBody(body) {
   assert(body.template, 'Template is missing');
   assert(body.data, 'Data is missing');
   assert(body.schedule, 'Schedule is missing');
-  assert(body.handler, 'Handler is missing');
 }
 
 var getCronTab = new Bluebird(function(resolve, reject) {
@@ -90,7 +91,10 @@ router.post('/', function(req, res) {
     crontab.save(function() {
       sendResponse(res, job);
     });
-  }).catch(sendError.bind(null, res));
+  }).catch(function(ex) {
+    console.error(ex.stack);
+    sendError(res);
+  });
 });
 
 router.put('/', function(req, res) {

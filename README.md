@@ -150,7 +150,7 @@ id       | String         | no
 template | Object         | yes
 data     | Object         | yes
 schedule | String/Number  | yes
-handler  | String         | yes
+handler  | String         | no
 
 Example:
 
