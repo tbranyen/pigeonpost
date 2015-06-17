@@ -2,7 +2,7 @@ const assert = require('assert');
 const path = require('path');
 const express = require('express');
 const supertest = require('supertest');
-const extend = require('lodash.assign');
+const _ = require('lodash');
 const crontab = require('../mocks/crontab');
 const typicalPollPost = require('../fixtures/typical-poll-post');
 const htmlAndUrlPollPost = require('../fixtures/html-and-url-poll-post');
@@ -16,8 +16,8 @@ describe('API', function() {
       this.router = require('../../server/api/poll/router');
       server.use('/poll', this.router);
       this.request = supertest(server);
-      this.typicalPollPost = extend({}, typicalPollPost);
-      this.htmlAndUrlPollPost = extend({}, htmlAndUrlPollPost);
+      this.typicalPollPost = _.extend({}, typicalPollPost);
+      this.htmlAndUrlPollPost = _.extend({}, htmlAndUrlPollPost);
     });
 
     it('can GET all poller jobs', function(done) {
@@ -81,6 +81,7 @@ describe('API', function() {
           test.htmlAndUrlPollPost.env = {
             AWS_SES_SECRETS: process.env.AWS_SES_SECRETS
           };
+          test.htmlAndUrlPollPost.expires = true;
 
           var serialized = '\'' + JSON.stringify(test.htmlAndUrlPollPost) + '\'';
 

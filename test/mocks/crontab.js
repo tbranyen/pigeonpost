@@ -22,12 +22,21 @@ module.exports = {
         command = new Array(2).concat(command);
 
         // Only test if not a special identifier.
-        if (when.indexOf('@') === -1) {
+        if (typeof when !== 'object' && when.indexOf('@') === -1) {
+          setTimeout(function() {
+            handler(command).then(function(state) {
+              result._state = state;
+            }).catch(function(ex) {
+              console.log(ex.stack);
+            });
+          }, -1 * moment().diff(new Date(when)));
+        }
+        else {
           setTimeout(function() {
             handler(command).then(function(state) {
               result._state = state;
             });
-          }, -1 * moment().diff(new Date(when)));
+          }, 10);
         }
 
         return result;

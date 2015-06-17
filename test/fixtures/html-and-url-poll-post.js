@@ -14,7 +14,7 @@ module.exports = {
     parser: 'html',
     value: 'http://tbranyen.com/'
   },
-  schedule: moment().add(1, 'seconds'),
+  schedule: Number(moment().add(1, 'seconds')),
   handler: function($) {
     return {
       name: $('title').text()

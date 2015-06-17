@@ -30,7 +30,9 @@ module.exports = function(argv) {
         return new Bluebird(function(resolve, reject) {
           crontab.load(function(err, crontab) {
             crontab.remove({ comment: state.payload.id });
-            crontab.save(resolve);
+            crontab.save(function() {
+              resolve(state);
+            });
           });
         });
       }

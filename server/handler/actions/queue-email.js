@@ -5,7 +5,7 @@ const engines = require('../../engines');
 const _ = require('lodash');
 
 function createQueue(payload) {
-  queue.create('email', payload).ttl(1000).attempts(3).save();
+  queue.create('email', payload).priority('normal').save();
 }
 
 module.exports = function queueEmail(state) {
