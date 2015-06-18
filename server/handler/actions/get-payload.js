@@ -7,7 +7,6 @@
 module.exports = function getPayload(state) {
   var payload = state.argv[0];
 
-  console.log(payload);
   state.payload = JSON.parse(payload);
 
   // Inject the `SECRETS` location into this environment.
