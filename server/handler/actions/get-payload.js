@@ -5,9 +5,10 @@
  * @return state
  */
 module.exports = function getPayload(state) {
-  var payload = state.argv[0].split(' ').slice(1).join(' ');
+  var payload = state.argv[0];
 
-  state.payload = JSON.parse(payload.slice(1, -1));
+  console.log(payload);
+  state.payload = JSON.parse(payload);
 
   // Inject the `SECRETS` location into this environment.
   process.env.AWS_SES_SECRETS = state.payload.env.AWS_SES_SECRETS;

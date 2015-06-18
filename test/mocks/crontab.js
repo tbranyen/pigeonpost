@@ -18,10 +18,9 @@ module.exports = {
         result._when = when;
         result._comment = uuid;
 
-        command = command.split(' ').slice(1).join(' ');
+        command = command.split(' ').slice(2).join(' ').slice(1, -1);
         command = new Array(2).concat(command);
 
-        // Only test if not a special identifier.
         if (typeof when !== 'object' && when.indexOf('@') === -1) {
           setTimeout(function() {
             handler(command).then(function(state) {
