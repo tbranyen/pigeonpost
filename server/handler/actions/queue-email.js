@@ -1,8 +1,8 @@
 const Bluebird = require('bluebird');
+const _ = require('lodash');
 const queue = require('../../queue');
 const email = require('../../email');
 const engines = require('../../engines');
-const _ = require('lodash');
 
 function createQueue(payload) {
   queue.create('email', payload)
@@ -19,8 +19,13 @@ module.exports = function queueEmail(state) {
 
   // Working with an Array of payloads.
   if (state.payload._extended) {
-    payloads = state.payload._extended.map(function(payload) {
-      return _.extend({}, state.payload, payload);
+    payloads = state.payload._extended.map(function(payload, i) {
+      var merged = _.extend({}, state.payload, payload);
+
+      // Set the specific `to` (not all the recipients).
+      merged.to = [merged.to[i]];
+
+      return merged;
     });
   }
   // A single payload.

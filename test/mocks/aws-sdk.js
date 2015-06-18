@@ -29,3 +29,5 @@ exports.SES.prototype = {
     });
   }
 };
+
+exports.SQS = function() {};

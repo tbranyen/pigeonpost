@@ -91,7 +91,7 @@ describe('API', function() {
           setTimeout(function() {
             assert.equal(crontab.result._state.payload.body, 'Hello Tim');
             done(err);
-          }, 1500);
+          }, 150);
         });
     });
 
