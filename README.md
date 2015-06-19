@@ -36,6 +36,25 @@ docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Cr
 }
 ```
 
+### Bounce & Complaint handling
+
+Amazon requires handling of bounce and complaint notices to mitigate potential
+account suspension.  PigeonPost requires that you hook up SES to emit bounce
+and complaint notices through Amazon SNS.  Once you have created a topic and
+marked your verified email user to forward complaints to SNS, you will need to
+hook up SNS to Amazon SQS.  Create a queue and have it subscribe to your SNS
+topic.  On the SQS configuration page you will find a url that points to your
+queue.  Add this to the configuration file discussed above like so:
+
+``` json
+{
+  "accessKeyId": "test_key",
+  "secretAccessKey": "test_secret",
+  "region": "us-east-1",
+  "sqsUrl": "https://sqs.us-east-1.amazonaws.com/12345/SES_UNDELIVERABLE"
+}
+```
+
 ## Usage
 
 By design this application is meant to be standalone on a server and act as a
